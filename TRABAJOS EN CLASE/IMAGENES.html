@@ -1,0 +1,44 @@
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<h1>IMAGENES</h1>
+
+<div id="app">
+    <div>
+      Alto : <input type="number" v-model="alto"></input>
+      Ancho : <input type="number" v-model="ancho"></input> 
+    </div>
+ <div>
+    <select v-model="posicion">
+        <option value="0">Imagen 1</option>
+        <option value="1">Imagen 2</option>
+        <option value="2">Imagen 3</option>
+        <option value="3">Imagen 4</option>
+        <option value="4">Imagen 5</option>
+
+      </select>
+ </div>
+      
+
+      <img :src="imagenes[posicion]" :width="ancho"  :height="alto"></img>
+    
+</div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp(
+    {
+    data() {
+      return {
+        posicion : 0,
+        ancho : 100,
+        alto : 100,
+        imagenes : ['https://images.justwatch.com/poster/301794981/s718/kengan-ashura.jpg',
+        'https://diarioelsalvador.com/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-29-at-3.29.11-PM-1-e1717018740448.jpeg',
+         'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/10/collage-maker-05-oct-2023-09-34-am-3484.jpg',
+         'https://i.blogs.es/974bb0/jujutsu-kaisen-3/1366_2000.jpg',
+         'https://i.blogs.es/48eb91/jujutsu-kaisen/500_333.jpeg']
+       }
+    }
+  }
+  ).mount('#app')
+</script>

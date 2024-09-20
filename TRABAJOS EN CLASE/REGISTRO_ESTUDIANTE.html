@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Estudiantes</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+<h1>REGISTRO DE ESTUDIANTES</h1>
+
+<div id="app">
+   <div>
+    <label for="nombre">Nombre: </label>
+    <input type="text" id="nombre" v-model="persona.nombre">
+   </div>
+   <div>
+    <label for="apellido">Apellido: </label>
+    <input type="text" id="apellido" v-model="persona.apellido">
+   </div>
+   <div>
+    <label for="celular">Celular: </label>
+    <input type="text" id="celular" v-model="persona.celular">
+   </div>
+   <div>
+    <label for="email">Email: </label>
+    <input type="email" id="email" v-model="persona.email">
+   </div>
+ 
+    <button @click="registrar">Registrar</button>
+
+    <div>
+      <h5>Listado de Estudiantes</h5>
+      <table border="1" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Celular</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(data, index) in listado" :key="index">
+            <td>{{ data.nombre }}</td>
+            <td>{{ data.apellido }}</td>
+            <td>{{ data.celular }}</td>
+            <td>{{ data.email }}</td>
+            <td>
+              <button @click="eliminar(index)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>No. Estudiantes: {{ listado.length }}</h3>
+    </div>
+</div>
+
+<script>
+  const { createApp } = Vue;
+
+  createApp({
+    data() {
+      return {
+         persona: {
+            nombre: '',
+            apellido: '',
+            celular: '',
+            email: ''
+         },
+         listado: []
+      };
+    },
+    methods: {
+      registrar() {
+        if (this.persona.nombre === '' || this.persona.apellido === '' || this.persona.celular === '' || this.persona.email === '') {
+          alert('Todos los campos son obligatorios.');
+        } else {
+          const copy = { ...this.persona };
+          this.listado.push(copy); 
+          this.limpiar(); 
+        }
+      },
+      limpiar() {
+        this.persona.nombre = '';
+        this.persona.apellido = '';
+        this.persona.celular = '';
+        this.persona.email = '';
+      },
+      eliminar(pos) {
+        this.listado.splice(pos, 1); 
+      }
+    }
+  }).mount('#app');
+</script>
+
+</body>
+</html>

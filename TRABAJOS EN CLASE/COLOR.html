@@ -1,0 +1,56 @@
+<style>
+    .box {
+      margin-top: 20px;
+      border: 2px solid #000;
+    }
+  </style>
+  
+  <h1>CAJA DE COLOR</h1>
+  
+  <div id="app">
+    <h2>Seleccione un color para la caja:</h2>
+    
+    <input type="number" v-model.number="boxWidth" placeholder="Ancho" />
+  
+    <input type="number" v-model.number="boxHeight" placeholder="Alto" />
+  
+    <div 
+      :style="{ 
+        backgroundColor: colors[posicion], 
+        width: boxWidth + 'px', 
+        height: boxHeight + 'px' 
+      }" 
+      class="box">
+    </div>
+  
+    <select v-model="posicion">
+      <option value="0">red</option>
+      <option value="1">green</option>
+      <option value="2">blue</option>
+      <option value="3">yellow</option>
+      <option value="4">purple</option>
+      <option value="5">black</option>
+      <option value="6">orange</option>
+      <option value="7">brown</option>
+      <option value="8">pink</option>
+      <option value="9">gray</option>
+    </select>
+  
+  </div>
+  
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp } = Vue
+  
+    createApp({
+      data() {
+        return {
+          posicion: 0,
+          colors: ['red', 'green', 'blue', 'yellow', 'purple', 'black', 'orange', 'brown', 'pink', 'gray'],
+          boxWidth: 200,  
+          boxHeight: 200  
+        }
+      }
+    }).mount('#app')
+  </script>
+  
