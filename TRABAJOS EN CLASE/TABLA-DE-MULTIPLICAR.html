@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablas de Multiplicar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<div id="app" class="container">
+    <br><h1>TABLAS DE MULTIPLICAR</h1>
+    
+    <label for="">Generar tablas desde:</label> 
+    <input type="number" v-model="tablaInicio" min="1"><br><br>
+    
+    <label for="">Hasta la tabla:</label>
+    <input type="number" v-model="tablaFin" :min="tablaInicio"><br><br>
+    
+    <label for="">Multiplicar desde:</label>
+    <input type="number" v-model="rangoInicio" min="1"><br><br>
+    
+    <label for="">Multiplicar hasta:</label>
+    <input type="number" v-model="rangoFin" :min="rangoInicio"><br><br>
+    
+    <button class="btn btn-primary" @click="generarTablas">Generar</button>
+    
+    <div class="row mt-4" v-if="tablasGeneradas.length">
+        <div class="col-md-4 mb-4" v-for="tabla in tablasGeneradas" :key="tabla.numero">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tabla de {{tabla.numero}}</h5>
+                    <ul class="list-unstyled">
+                        <li v-for="data in tabla.resultados" :key="data">{{tabla.numero}} * {{data}} = {{tabla.numero * data}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const { createApp } = Vue;
+
+  createApp({
+    data() {
+      return {
+        tablaInicio: 1,        
+        tablaFin: 10,          
+        rangoInicio: 1,        
+        rangoFin: 10,        
+        tablasGeneradas: []    
+      }
+    },
+    methods: {
+      generarTablas() {
+        this.tablasGeneradas = [];
+        for (let i = this.tablaInicio; i <= this.tablaFin; i++) {
+          let tabla = {
+            numero: i,
+            resultados: Array.from({ length: this.rangoFin - this.rangoInicio + 1 }, (_, index) => this.rangoInicio + index)
+          };
+          this.tablasGeneradas.push(tabla);
+        }
+      }
+    }
+  }).mount('#app');
+</script>
+
+</body>
+</html>
+
+
+
+
